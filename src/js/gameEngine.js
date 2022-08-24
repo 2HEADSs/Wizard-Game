@@ -8,7 +8,9 @@ function gameLoop(state, game) {
     const { wizardElement } = game;
 
     modifyWizardPosition(state,game)
-
+    //Spawn bug
+    game.createBug(state.bugState);
+    
 
 
     //Render

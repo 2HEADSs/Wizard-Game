@@ -6,12 +6,21 @@ function initState() {
         player: 'Player',
         wizard: {
             width: 82,
-            height: 100, 
-            posX:startX,
-            posY:startY,
+            height: 100,
+            posX: startX,
+            posY: startY,
             speed: 10,
         },
-        keys: {}
+        bugState: {
+            width: 50,
+            height: 50,
+        },
+        keys: {
+            keyA: false,
+            keyS: false,
+            keyD: false,
+            keyW: false,
+        }
     }
 
     return state;

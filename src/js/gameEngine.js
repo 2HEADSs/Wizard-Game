@@ -24,7 +24,8 @@ function gameLoop(state, game, timestamp) {
         state.bugState.nextSpawnTimestamp = timestamp + Math.random() * state.bugState.maxSpawnInterval
     };
 
-    //Move bugs
+
+    //Render bugs
     document.querySelectorAll('.bug').forEach(bug => {
         let posX = parseInt(bug.style.left);
         if (posX > 0) {
@@ -33,7 +34,17 @@ function gameLoop(state, game, timestamp) {
             bug.remove()
         }
     });
+    
 
+    //Render fireball
+    document.querySelectorAll('.fireball').forEach(fireball => {
+        let posX = parseInt(fireball.style.left);
+        if (posX > game.gameScreen.offsetWidth) {
+            fireball.remove()
+        } else {
+            fireball.style.left = posX + state.fireBall.speed + 'px'
+        }
+    })
 
 
     //Render

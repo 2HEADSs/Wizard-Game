@@ -8,12 +8,17 @@ function gameLoop(state, game, timestamp) {
     const { wizard } = state;
     const { wizardElement } = game;
 
+    game.scoreScreen.textContent = `${state.score} pts.`
+
     modifyWizardPosition(state, game)
 
     if (state.keys.Space) {
         wizardElement.style.backgroundImage = 'url("/src/images/wizard-fire.png")';
+        if (timestamp > state.fireBall.nextSpawnTimestamp) {
+            game.createFireBall(wizard, state.fireBall);
+            state.fireBall.nextSpawnTimestamp = timestamp + state.fireBall.fireRate
+        }
 
-        game.createFireBall(wizard, state.fireBall)
     } else {
         wizardElement.style.backgroundImage = 'url("/src/images/wizard.png")';
     };
@@ -31,6 +36,12 @@ function gameLoop(state, game, timestamp) {
     let bugElements = document.querySelectorAll('.bug')
     bugElements.forEach(bug => {
         let posX = parseInt(bug.style.left);
+
+        //Detect collision with wizard
+        if (detectCollision(wizardElement, bug)) {
+            state.gameOver = true;
+            // wizardElement.remove()
+        }
         if (posX > 0) {
             bug.style.left = posX - state.bugState.speed + 'px'
         } else {
@@ -45,7 +56,8 @@ function gameLoop(state, game, timestamp) {
 
         //Detect fireball collision
         bugElements.forEach(bug => {
-            if (detectCollision(bug, fireball)){
+            if (detectCollision(bug, fireball)) {
+                state.score += state.scoreRate;
                 bug.remove();
                 fireball.remove()
             }
@@ -63,7 +75,14 @@ function gameLoop(state, game, timestamp) {
     //Render
     wizardElement.style.left = wizard.posX + 'px';
     wizardElement.style.top = wizard.posY + 'px';
-    window.requestAnimationFrame(gameLoop.bind(null, state, game))
+
+    if (state.gameOver) {
+        alert(`GameOver - ${state.score}pts.`)
+    } else {
+        // state.score += state.scoreRate;
+        window.requestAnimationFrame(gameLoop.bind(null, state, game))
+    }
+
 }
 
 function modifyWizardPosition(state, game) {

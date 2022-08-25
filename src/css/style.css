@@ -1,7 +1,7 @@
 body {
     font-family: "Consolas";
     margin: 0;
-    overflow:hidden,
+    overflow: hidden,
 }
 
 .game {
@@ -53,6 +53,11 @@ body {
     background-size: cover;
 }
 
+.score {
+    position: absolute;
+    top: 10px;
+    left: 100px;
+}
 
 .hidden {
     display: none;

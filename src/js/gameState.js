@@ -4,6 +4,9 @@ function initState() {
 
     const state = {
         player: 'Player',
+        gameOver: false,
+        score: 0,
+        scoreRate: 1,
         wizard: {
             width: 82,
             height: 100,
@@ -21,7 +24,9 @@ function initState() {
         fireBall: {
             width: 20,
             height: 20,
-            speed: 10
+            speed: 10,
+            nextSpawnTimestamp: 0,
+            fireRate: 300
         },
         keys: {
             keyA: false,

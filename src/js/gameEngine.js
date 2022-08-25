@@ -14,8 +14,14 @@ function gameLoop(state, game, timestamp) {
     if (timestamp > state.bugState.nextSpawnTimestamp) {
         game.createBug(state.bugState);
         state.bugState.nextSpawnTimestamp = timestamp + Math.random() * state.bugState.maxSpawnInterval
-    }
-    console.log(timestamp);
+    };
+
+    //Move bugs
+    document.querySelectorAll('.bug').forEach(bug => {
+        let posX = parseInt(bug.style.left);
+
+        bug.style.left = posX - state.bugState.speed + 'px'
+    });
 
 
 
